@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 47285fe60240a13499219531754557ba
+timeCreated: 1498579719
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 72
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Sin City
+  fontNames:
+  - Sin City
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
