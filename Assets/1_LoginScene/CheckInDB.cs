@@ -34,34 +34,24 @@ public class CheckInDB : MonoBehaviour
 		if (Equals (targetField.name, "IF_Name")) {
 			if (targetField.text.Length < 4) {
 				ShowAlert (alert, textAlert, "Логін повинен містити не менше 4 символів");
-				//isFieldOk &= ~IsValidate.login;
-				//SINPanelActivBtn (btnSIN);
 				return false;
 			} else {
-				//SINPanelActivBtn (btnSIN);
 				return true;
 			}
 		}
 		if (Equals (targetField.name, "IF_Email")) {
 			if (targetField.text.Length < 7 && !targetField.text.Contains ("@")) {
 				ShowAlert (alert, textAlert, "Перевірте правильність написання пошти");
-				//Debug.LogError ("Перевірте правильність написання пошти");
-				//isFieldOk &= ~IsValidate.email;
-				//SINPanelActivBtn (btnSIN);
 				return false;
 			} else {
-				//SINPanelActivBtn (btnSIN);
 				return true;
 			}
 		}
-		if (Equals (targetField.name, "IF_Pass")) {
+		if (Equals (targetField.name, "IF_Pass") || Equals (targetField.name, "IF_PassUP")) {
 			if (targetField.text.Length < 6) {
 				ShowAlert (alert, textAlert, "Пароль повинен містити не менше 6 символів");
-				//Debug.LogError ("Пароль повинен містити не менше 6 символів");
-				//isOk &= ~IsRegistrationOk.pswd;
 				return false;
 			} else {
-				//isFieldOk |= IsValidate.pass;
 				return true;
 			}
 		}
@@ -73,11 +63,8 @@ public class CheckInDB : MonoBehaviour
 	{
 		if (!Equals (passField.text, rePassField.text)) {
 			ShowAlert (alert, textAlert, "Повторний пароль не збігається.\nБудьте УВАЖНІ !!!\nПовторіть спробу.");
-			//Debug.LogError ("Повторний пароль не збігається");
-			//isFieldOk &= ~IsValidate.rePass;
 			return false;
 		} else {
-			//isFieldOk |= IsValidate.rePass;
 			return true;
 		}
 		return false;
@@ -105,46 +92,60 @@ public class CheckInDB : MonoBehaviour
 	// Check name in DB
 	public void EndEditName (InputField targetField)
 	{
-		if (ValidateField (targetField)) {
-			StartCoroutine (FindName (targetField.text));
+		if (ValidateField (targetField) && Equals (targetField.tag, "fieldSUP")) {
+			StartCoroutine (FindNameUP (targetField.text));
 		}
-
-		/*if (ValidateField (targetField) && Equals (targetField.tag, "fieldSIN")) {
-			StartCoroutine (FindName (targetField.text));
-		} else if (ValidateField (targetField) && Equals (targetField.tag, "fieldSUP")) {
-			consoleText.text = "User name OK !";
-			isFieldOk |= IsValidate.login;
-		}*/
+		if (ValidateField (targetField) && Equals (targetField.tag, "fieldSIN")) {
+			StartCoroutine (FindNameIN (targetField.text));
+		}
 	}
 
-	IEnumerator FindName (string nameSIN)
+	IEnumerator FindNameIN (string nameSIN)
 	{
 		consoleText.text = "start find user name ...";
-		//Debug.Log ("start find user name ...");
 		WWWForm form = new WWWForm ();
 		form.AddField ("name", nameSIN);
-
-		WWW www = new WWW ("http://localhost/www.local/php_wd/findName.php", form);
+		WWW www = new WWW ("http://www.local/php_wd/findName.php", form);
 		yield return www;
-
 		if (!string.IsNullOrEmpty (www.error)) {
-			consoleText.text = "Error: name !---------------------------------" + www.error;
-			//Debug.LogError ("Error: name !" + www.error);
+			consoleText.text = "Error: conect (name) ! ---------------------------------" + www.error;
 			yield break;
 		}
 		consoleText.text = "... result >> " + www.text;
-		//Debug.Log ("... result >> " + www.text);
+		if (www.text.Length == 1) {
+			if (Equals (www.text, "1")) {
+				consoleText.text = "User name OK !";
+				isFieldOk |= IsValidate.login;
+			} else if (Equals (www.text, "0")) {
+				ShowAlert (alert, textAlert, "Логін відсутній !\nЗареєструйтесь !\nАбо перевірте написання !");
+				isFieldOk &= ~IsValidate.login;
+			}
+			SINPanelActivBtn (btnSIN);
+		}
+		yield return null;
+	}
+
+	IEnumerator FindNameUP (string nameSUP)
+	{
+		consoleText.text = "start find user name ...";
+		WWWForm form = new WWWForm ();
+		form.AddField ("name", nameSUP);
+		WWW www = new WWW ("http://www.local/php_wd/findName.php", form);
+		yield return www;
+		if (!string.IsNullOrEmpty (www.error)) {
+			consoleText.text = "Error: name !---------------------------------" + www.error;
+			yield break;
+		}
+		consoleText.text = "... result >> " + www.text;
 		if (www.text.Length == 1) {
 			if (Equals (www.text, "1")) {
 				consoleText.text = "Такий логін зайнятий виберіть інший";
-				//Debug.LogError ("Такий логін зайнятий виберіть інший");
 				isFieldOk &= ~IsValidate.login;
 			} else if (Equals (www.text, "0")) {
 				consoleText.text = "User name OK ! ";
-				//Debug.Log ("User name OK !");
 				isFieldOk |= IsValidate.login;
 			}
-			SINPanelActivBtn (btnSIN);
+			SUPPanelActivBtn (btnSUP);
 		}
 		yield return null;
 	}
@@ -152,52 +153,78 @@ public class CheckInDB : MonoBehaviour
 	// Check email in DB
 	public void EndEditEmail (InputField targetField)
 	{        
-		if (ValidateField (targetField)) {
-			StartCoroutine (FindEmail (targetField.text));
+		if (ValidateField (targetField) && Equals (targetField.tag, "fieldSUP")) {
+			StartCoroutine (FindEmailUP (targetField.text));
+		}
+		if (ValidateField (targetField) && Equals (targetField.tag, "fieldSIN")) {
+			StartCoroutine (FindEmailIN (targetField.text));
 		}
 	}
 
-	IEnumerator FindEmail (string emailSIN)
+	IEnumerator FindEmailIN (string emailSIN)
 	{
 		consoleText.text = "start find user email ...";
-		//Debug.Log ("start find user email ...");
 		WWWForm form = new WWWForm ();
 		form.AddField ("email", emailSIN);
-
-		WWW www = new WWW ("http://localhost/www.local/php_wd/findEmail.php", form);
+		WWW www = new WWW ("http://www.local/php_wd/findEmail.php", form);
 		yield return www;
-
 		if (!string.IsNullOrEmpty (www.error)) {
-			consoleText.text = "Error: email !" + www.error;
-			//Debug.LogError ("Error: email !" + www.error);
+			consoleText.text = "Error: conect (email) ! ---------------------------------" + www.error;
 			yield break;
 		}
 		consoleText.text = "... result >> " + www.text;
-		//print ("... result >> " + www.text);
 		if (www.text.Length == 1) {
 			if (Equals (www.text, "1")) {
-				consoleText.text = "Така пошта використовуєьться, виберіть іншу";
-				//Debug.LogError ("Така пошта використовуєьться, виберіть іншу");
-				isFieldOk &= ~IsValidate.email;
-			} else if (Equals (www.text, "0")) {
 				consoleText.text = "User email OK !";
-				//Debug.Log ("User email OK !");
 				isFieldOk |= IsValidate.email;
+			} else if (Equals (www.text, "0")) {
+				ShowAlert (alert, textAlert, "Пошта відсутня !\nЗареєструйтесь !\nАбо перевірте написання !");
+				isFieldOk &= ~IsValidate.email;
 			}
 			SINPanelActivBtn (btnSIN);
 		}
 		yield return null;
 	}
 
+	IEnumerator FindEmailUP (string emailSUP)
+	{
+		consoleText.text = "start find user email ...";
+		WWWForm form = new WWWForm ();
+		form.AddField ("email", emailSUP);
+		WWW www = new WWW ("http://www.local/php_wd/findEmail.php", form);
+		yield return www;
+		if (!string.IsNullOrEmpty (www.error)) {
+			consoleText.text = "Error: email !" + www.error;
+			yield break;
+		}
+		consoleText.text = "... result >> " + www.text;
+		if (www.text.Length == 1) {
+			if (Equals (www.text, "1")) {
+				consoleText.text = "Така пошта використовуєьться, виберіть іншу";
+				isFieldOk &= ~IsValidate.email;
+			} else if (Equals (www.text, "0")) {
+				consoleText.text = "User email OK !";
+				isFieldOk |= IsValidate.email;
+			}
+			SUPPanelActivBtn (btnSUP);
+		}
+		yield return null;
+	}
 	//Check pass
 	public void EndEditPass (InputField targetField)
 	{        
-		if (ValidateField (targetField)) {
+		if (ValidateField (targetField) && Equals (targetField.tag, "fieldSIN")) {
+			consoleText.text = "pass Ok !";
+			SINPanelActivBtn (btnSIN);
+		} else
+			isFieldOk &= ~IsValidate.pass;
+		if (ValidateField (targetField) && Equals (targetField.tag, "fieldSUP")) {
 			isFieldOk |= IsValidate.pass;
 			SUPPanelActivBtn (btnSUP);
-		}
+		} else
+			isFieldOk &= ~IsValidate.pass;
 	}
-
+	//Confirm password
 	public void EndEditRePass ()
 	{
 		InputField pass = GameObject.Find ("IF_PassUP").GetComponent<InputField> ();
@@ -205,7 +232,7 @@ public class CheckInDB : MonoBehaviour
 
 		if (ValidateField (pass, rePass)) {
 			isFieldOk |= IsValidate.rePass;
-			SUPPanelActivBtn (btnSUP);
 		}
+		SUPPanelActivBtn (btnSUP);
 	}
 }

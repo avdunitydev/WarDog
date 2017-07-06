@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OnClickButton : MonoBehaviour
@@ -38,7 +39,7 @@ public class OnClickButton : MonoBehaviour
 		form.AddField ("name", name);
 		form.AddField ("password", password);
 
-		WWW www = new WWW ("http://localhost/test2.site/php/SignInUser.php", form);
+		WWW www = new WWW ("http://www.local/php_wd/SignInUser.php", form);
 		yield return www;
 
 		if (!string.IsNullOrEmpty (www.error)) {
@@ -53,7 +54,7 @@ public class OnClickButton : MonoBehaviour
 			//Debug.Log ("Вхід виконано успішно");
 			PlayerPrefs.SetInt ("user_id", int.Parse (www.text));
 			Invoke ("setTextToConsole (\"Player ID : \" + www.text)", 2);
-			//SceneManager.LoadScene (1);   // ---- UnCommit TO DO loading next ...
+			SceneManager.LoadScene (2);   // ---- UnCommit TO DO loading next ...
 		} else {
 			setTextToConsole ("Не вірний пароль. Pleas try again !!!");
 			//Debug.LogError ("Не вірний пароль. Pleas try again !!!");
@@ -80,7 +81,7 @@ public class OnClickButton : MonoBehaviour
 		form.AddField ("email", email);
 		form.AddField ("password", password);
 
-		WWW www = new WWW ("http://localhost/test2.site/php/SignUpUser.php", form);
+		WWW www = new WWW ("http://www.local/php_wd/SignUpUser.php", form);
 		yield return www;
 
 		if (!string.IsNullOrEmpty (www.error)) {
