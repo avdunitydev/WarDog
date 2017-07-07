@@ -50,6 +50,7 @@
      <Compile Include="Assets\1_LoginScene\ChangePanel.cs" />
      <Compile Include="Assets\1_LoginScene\CheckInDB.cs" />
      <Compile Include="Assets\1_LoginScene\OnClickButton.cs" />
+     <Compile Include="Assets\JumpDetection.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\CanvasScript.cs" />
      <Compile Include="Assets\Scripts\CloseOpenDoor.cs" />
@@ -75,6 +76,9 @@
      <None Include="Assets\TestLevel\environment\customTrees\Materials\TreeCreatorLeavesFastOptimized.shader" />
      <None Include="Assets\Resources\_Sounds\Forgotten Dawn Assets\Dark Cinematic BGM Loops\readme.txt" />
      <None Include="Assets\TestLevel\shaders\snowTop.shader" />
+ <Reference Include="Facebook.Unity.Settings">
+ <HintPath>/Users/comp2/Documents/GitHub/WarDog/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
