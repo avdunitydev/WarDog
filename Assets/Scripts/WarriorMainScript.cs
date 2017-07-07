@@ -14,7 +14,7 @@ public class WarriorMainScript : MonoBehaviour
 	private Rigidbody commando;
 	Vector3 rotCam;
 	bool isAlive;
-	bool isGround;
+	public bool isGround;
 	RaycastHit hit;
 	public Transform sens;
 	public bool Reloading;
@@ -41,6 +41,7 @@ public class WarriorMainScript : MonoBehaviour
 
 	void FixedUpdate ()
 	{
+		
 		if (isAlive) {
 			transform.position = anim.rootPosition;
 			commando.velocity = transform.TransformDirection (Input.GetAxis ("Horizontal") * speed * shiftspeed / 2, commando.velocity.y, Input.GetAxis ("Vertical") * shiftspeed * speed);
@@ -53,25 +54,7 @@ public class WarriorMainScript : MonoBehaviour
 				cam.transform.localEulerAngles = rotCam;
 			}
 
-			if (Physics.Raycast (sens.position, Vector3.down, out hit, 5)) {
-				anim.SetBool ("jump", true);
-				isGround = false;
-				if (speed > 1.2f) {
-					speed -= 2f * Time.deltaTime;
-				}
 
-			} else {
-				if (speed < 3) {
-					speed += 1.2f * Time.deltaTime;
-				}
-				anim.SetBool ("jump", false);
-				isGround = true;
-
-				if (!anim.GetBool ("ctrl") && isGround && Input.GetKeyDown (KeyCode.Space)) {
-					commando.AddForce (0, 2000, 0);
-				}
-				anim.SetFloat ("YSpeed", commando.velocity.y);
-			}
 		}
 	}
 
@@ -97,6 +80,29 @@ public class WarriorMainScript : MonoBehaviour
 	void Update ()
 	{
 		if (isAlive) {
+			anim.SetFloat ("YSpeed", commando.velocity.y);	
+			if (Physics.Raycast (sens.position, Vector3.down, out hit, 0.5f)) {
+				anim.SetBool ("jump", false);
+				isGround = true;
+								if (speed < 3) {
+									speed += 1.2f * Time.deltaTime;
+								}
+				if (!anim.GetBool ("ctrl") && isGround && Input.GetKeyDown (KeyCode.Space)) {
+					commando.AddForce (0, 2000, 0);
+				}
+				Debug.DrawRay (sens.position, Vector3.down);
+
+			} else 
+			{
+								if (speed > 1.2f) {
+									speed -= 2f * Time.deltaTime;
+								}
+
+				anim.SetBool ("jump", true);
+				isGround = false;
+
+
+			}
 			if (Input.GetKeyDown (KeyCode.T)) {
 				cam1.enabled = !cam1.enabled;
 				cam2.enabled = !cam2.enabled;
