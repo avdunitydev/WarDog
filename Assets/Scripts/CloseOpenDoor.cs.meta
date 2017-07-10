@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: f1e09f8e726ba43f2b807ba32350ff94
 timeCreated: 1499675470
+=======
+guid: 94678320cda21478e8b5e2035cd6ba34
+timeCreated: 1499409269
+>>>>>>> avd_dev
 licenseType: Free
 MonoImporter:
   serializedVersion: 2

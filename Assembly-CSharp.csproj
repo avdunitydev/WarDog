@@ -73,6 +73,7 @@
      <Compile Include="Assets\TestLevel\scripts\explosive.cs" />
      <Compile Include="Assets\TestLevel\scripts\playrandomsound.cs" />
      <Compile Include="Assets\TestLevel\scripts\waitAndDestroy.cs" />
+     <Compile Include="Assets\weaponscipr.cs" />
      <None Include="Assets\TestLevel\environment\skyshader1.0\mysky.shader" />
      <None Include="Assets\TestLevel\environment\customTrees\Materials\TreeCreatorLeavesFastOptimized.shader" />
      <None Include="Assets\Resources\_Sounds\Forgotten Dawn Assets\Dark Cinematic BGM Loops\readme.txt" />
@@ -101,6 +102,10 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{161D0520-FEC7-9A34-679F-6F4E884F9242}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
