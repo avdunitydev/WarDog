@@ -50,11 +50,7 @@ public class CloseOpenDoor : MonoBehaviour
 	}
 
 	//iTween -- move
-<<<<<<< HEAD
 	/*void iMove ()
-=======
-	void iMove ()
->>>>>>> avd_dev
 	{
 		iTween.MoveBy (gameObject, 
 			iTween.Hash ("x", 2, "easeType", "easeInOutExpo", "loopType", "pingPong", "delay", .1));
@@ -65,9 +61,6 @@ public class CloseOpenDoor : MonoBehaviour
 	{
 		iTween.RotateBy (gameObject, 
 			iTween.Hash ("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", .4));
-<<<<<<< HEAD
+
 	}*/
-=======
-	}
->>>>>>> avd_dev
 }
