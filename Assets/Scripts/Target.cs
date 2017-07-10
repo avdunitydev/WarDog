@@ -15,23 +15,41 @@ public class Target : MonoBehaviour {
 	NavMeshAgent agent;
 	public AudioClip roar, attack,death;
 	AudioSource _audioSource;
-	public float timer = 0;
+	float timer = 0, timer2 = 0;
 	public bool playerIsDead = false;
 	public float visible = 25f;
 	public float angleV = 80f;
 
+	public Transform [] mas;
+	int idPoint = 0;
+
+	public Transform obj;
 
 	void Start () {
-		
+		agent = GetComponent<NavMeshAgent> ();
+
+		agent.SetDestination (mas [0].position);
 		Agr = false;
 		isAlive = true;
 		_audioSource = GetComponent<AudioSource> ();
 		anim = GetComponent<Animator> ();
 		agent = GetComponent<NavMeshAgent> ();
+
+		obj = GetComponentInChildren<weaponscipr> ().transform;
+
 	}
 
 
 	void Update(){
+		anim.SetFloat ("Move", Mathf.Abs( agent.velocity.z));
+		if ((Vector3.Distance (transform.position, mas [idPoint].position) < 2) && !Agr) {
+			timer2 += Time.deltaTime;
+			if (timer2 > 10) {
+				timer2 = 0;
+			idPoint = ++idPoint % mas.Length;
+				agent.SetDestination (mas [idPoint].position);
+			}
+		}
 		float distance = Vector3.Distance (sold.position, gameObject.transform.position);
 		if (playerIsDead) {
 			anim.SetBool ("PK", true);
@@ -121,6 +139,7 @@ public class Target : MonoBehaviour {
 				anim.SetBool ("IsAlive", false);
 				anim.SetBool ("Agro", false);
 				Agr = false;
+				obj.gameObject.SetActive (false);
 				GetComponent<CapsuleCollider> ().isTrigger = true;
 				isAlive = false;
 

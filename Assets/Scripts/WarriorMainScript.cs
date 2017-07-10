@@ -90,6 +90,7 @@ public class WarriorMainScript : MonoBehaviour
 									speed += 1.2f * Time.deltaTime;
 								}
 				if (!anim.GetBool ("ctrl") && isGround && Input.GetKeyDown (KeyCode.Space)) {
+					shoot.audioSource.PlayOneShot (shoot.jump);
 					commando.AddForce (0, 2000, 0);
 				}
 				Debug.DrawRay (sens.position, Vector3.down);
@@ -144,10 +145,14 @@ public class WarriorMainScript : MonoBehaviour
 				
 				anim.SetBool ("ctrl", true);
 				shiftspeed = 0.4f;
-				cam.transform.localPosition = new Vector3 (cam.transform.localPosition.x, 1.35f, 0.34f);
-		
-			} else if (cam1.enabled) {
-				cam.transform.localPosition = new Vector3 (0.08f, 1.58f, 0.2f);
+				if (cam1.enabled) {
+					cam.transform.localPosition = new Vector3 (cam.transform.localPosition.x, 1.35f, 0.34f);
+				}
+			}
+			else{
+//			} else { if (cam1 = enabled) {
+//					cam1.transform.localPosition = new Vector3 (0.08f, 1.58f, 0.2f);
+//				}
 				anim.SetBool ("ctrl", false);
 			}
 			if (Input.GetKeyDown (KeyCode.R)) {
