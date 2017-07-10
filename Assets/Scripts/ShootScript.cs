@@ -63,23 +63,19 @@ public class ShootScript : MonoBehaviour
 		if (Physics.Raycast (fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
 			Debug.Log (hit.transform.name);
 
-			GameObject inpact2 = Instantiate (impacteffect, hit.point, Quaternion.LookRotation (hit.normal));
-			Destroy (inpact2, 2f);
-
-			/*Target target = hit.transform.GetComponent<Target> ();
-
-			if (target != null) {
-				target.TakeDamage (damage);
-			}
-
-			if (target.tag == "human") {
-				print ("blood");
+			if (hit.transform.tag == "human") {
 				GameObject inpact1 = Instantiate (Blood, hit.point, Quaternion.LookRotation (hit.normal));
 				Destroy (inpact1, 2f);
+				Target target = hit.transform.GetComponent<Target> ();
+
+				if (target != null) {
+				target.TakeDamage (damage);
+			}
+				
 			} else {
 				GameObject inpact2 = Instantiate (impacteffect, hit.point, Quaternion.LookRotation (hit.normal));
 				Destroy (inpact2, 2f);
-			}*/
+			}
 						
 		}
 	}

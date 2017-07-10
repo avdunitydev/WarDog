@@ -26,6 +26,7 @@ public class WarriorMainScript : MonoBehaviour
 
 
 
+
 	void Start ()
 	{
 		HP = 100;
@@ -36,6 +37,7 @@ public class WarriorMainScript : MonoBehaviour
 		FPS = true;
 		Cursor.visible = !Cursor.visible;
 		Cursor.lockState = CursorLockMode.Locked;
+	
 
 	}
 
@@ -154,14 +156,15 @@ public class WarriorMainScript : MonoBehaviour
 				shoot.audioSource.PlayOneShot (shoot.reload);
 
 			}
-		} else {
-			Die ();
-		}
+		} 
 	}
 
 	void Die ()
 	{
+		print("Dssds");
 		anim.SetBool ("isAlive", false);
+		anim.SetTrigger ("Rel");
+		anim.SetInteger ("DeathNumber", Random.Range (1, 7));
 		cam1.enabled = false;
 		cam2.enabled = true;
 		
@@ -175,6 +178,7 @@ public class WarriorMainScript : MonoBehaviour
 
 			if (HP <= 0) {
 				isAlive = false;                      
+				Die ();
 			}
 		}
 	}
