@@ -181,7 +181,7 @@ public class WarriorMainScript : MonoBehaviour
 			HP = HP - 20;
 			print ("HP = " + HP);  
 
-			if (HP <= 0) {
+			if (HP <= 0 && isAlive) {
 				isAlive = false;                      
 				Die ();
 			}
