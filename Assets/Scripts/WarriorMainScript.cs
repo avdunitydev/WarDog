@@ -22,6 +22,7 @@ public class WarriorMainScript : MonoBehaviour
 	public ShootScript shoot;
 	public GameObject LeftRifle, RightRifle;
 	public int HP;
+	public Text hpUI;
 
 
 
@@ -30,6 +31,7 @@ public class WarriorMainScript : MonoBehaviour
 	void Start ()
 	{
 		HP = 100;
+		hpUI.text = HP.ToString ();
 		commando = GetComponent<Rigidbody> ();
 		anim = GetComponent<Animator> ();
 		isAlive = true;
@@ -81,24 +83,24 @@ public class WarriorMainScript : MonoBehaviour
 
 	void Update ()
 	{
+		hpUI.text = HP.ToString ();
 		if (isAlive) {
 			anim.SetFloat ("YSpeed", commando.velocity.y);	
 			if (Physics.Raycast (sens.position, Vector3.down, out hit, 0.5f)) {
 				anim.SetBool ("jump", false);
 				isGround = true;
-								if (speed < 3) {
-									speed += 1.2f * Time.deltaTime;
-								}
+				if (speed < 3) {
+					speed += 1.2f * Time.deltaTime;
+				}
 				if (!anim.GetBool ("ctrl") && isGround && Input.GetKeyDown (KeyCode.Space)) {
 					commando.AddForce (0, 2000, 0);
 				}
 				Debug.DrawRay (sens.position, Vector3.down);
 
-			} else 
-			{
-								if (speed > 1.2f) {
-									speed -= 2f * Time.deltaTime;
-								}
+			} else {
+				if (speed > 1.2f) {
+					speed -= 2f * Time.deltaTime;
+				}
 
 				anim.SetBool ("jump", true);
 				isGround = false;
@@ -161,7 +163,7 @@ public class WarriorMainScript : MonoBehaviour
 
 	void Die ()
 	{
-		print("Dssds");
+		print ("Dssds");
 		anim.SetBool ("isAlive", false);
 		anim.SetTrigger ("Rel");
 		anim.SetInteger ("DeathNumber", Random.Range (1, 7));
@@ -173,7 +175,7 @@ public class WarriorMainScript : MonoBehaviour
 	void OnTriggerEnter (Collider coll)
 	{
 		if (coll.transform.name == "Weapon") {
-			HP = HP - 20;
+			HP -= 20;
 			print ("HP = " + HP);  
 
 			if (HP <= 0) {

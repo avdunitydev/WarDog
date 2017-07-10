@@ -27,7 +27,7 @@ public class ShootScript : MonoBehaviour
 
 	void Start ()
 	{
-
+		AmmoTextUI.text = currentAmmo.ToString ();
 		mainscr = GetComponent <WarriorMainScript> ();
 		animator = GetComponent<Animator> ();
 		audioSource = GetComponent<AudioSource> ();
@@ -39,7 +39,7 @@ public class ShootScript : MonoBehaviour
 
 		if (Input.GetMouseButton (0) && Time.time >= nextTimeToFire && !isReloading) {
 			currentAmmo--;
-			//AmmoTextUI.text = currentAmmo.ToString();
+			AmmoTextUI.text = currentAmmo.ToString ();
 
 			if (currentAmmo <= 0) {
 				animator.Play ("reload_inPlace");
@@ -69,8 +69,8 @@ public class ShootScript : MonoBehaviour
 				Target target = hit.transform.GetComponent<Target> ();
 
 				if (target != null) {
-				target.TakeDamage (damage);
-			}
+					target.TakeDamage (damage);
+				}
 				
 			} else {
 				GameObject inpact2 = Instantiate (impacteffect, hit.point, Quaternion.LookRotation (hit.normal));
