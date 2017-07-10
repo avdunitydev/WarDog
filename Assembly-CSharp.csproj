@@ -77,7 +77,7 @@
      <None Include="Assets\Resources\_Sounds\Forgotten Dawn Assets\Dark Cinematic BGM Loops\readme.txt" />
      <None Include="Assets\TestLevel\shaders\snowTop.shader" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/comp2/Documents/GitHub/WarDog/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>/Users/comp3/Documents/UnityProjects/WarDog/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
