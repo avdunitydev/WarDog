@@ -1,8 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CloseOpenDoor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/1_LoginScene/OnClickExit.cs">
     <Files>
-      <File FileName="Assets/Scripts/CloseOpenDoor.cs" Line="55" Column="1" />
+      <File FileName="Assets/Scripts/CloseOpenDoor.cs" Line="64" Column="5" />
+      <File FileName="Assets/Scripts/WarriorMainScript.cs" Line="179" Column="4" />
+      <File FileName="Assets/Scripts/ShootScript.cs" Line="30" Column="45" />
+      <File FileName="Assets/1_LoginScene/CheckInDB.cs" Line="11" Column="17" />
+      <File FileName="Assets/1_LoginScene/OnClickExit.cs" Line="25" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
