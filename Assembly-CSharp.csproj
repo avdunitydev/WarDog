@@ -73,6 +73,7 @@
      <Compile Include="Assets\TestLevel\scripts\explosive.cs" />
      <Compile Include="Assets\TestLevel\scripts\playrandomsound.cs" />
      <Compile Include="Assets\TestLevel\scripts\waitAndDestroy.cs" />
+     <Compile Include="Assets\weaponscipr.cs" />
      <None Include="Assets\TestLevel\environment\skyshader1.0\mysky.shader" />
      <None Include="Assets\TestLevel\environment\customTrees\Materials\TreeCreatorLeavesFastOptimized.shader" />
      <None Include="Assets\Resources\_Sounds\Forgotten Dawn Assets\Dark Cinematic BGM Loops\readme.txt" />
