@@ -59,6 +59,10 @@ public class ShootScript : MonoBehaviour
 		audioSource.PlayOneShot (shot);
 		muzzleFlash.Play ();
 		if (fpsCam.enabled) {
+<<<<<<< HEAD
+=======
+			print("12122");
+>>>>>>> 6c6d7518bd5f7e30514ceccd44fb6c851b14816f
 			RaycastHit hit;
 			if (Physics.Raycast (fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
 				Debug.Log (hit.transform.name);
@@ -67,6 +71,7 @@ public class ShootScript : MonoBehaviour
 					GameObject inpact1 = Instantiate (Blood, hit.point, Quaternion.LookRotation (hit.normal));
 					Destroy (inpact1, 2f);
 					Target target = hit.transform.GetComponent<Target> ();
+<<<<<<< HEAD
 				
 					if (target != null) {
 						target.TakeDamage (damage);
@@ -83,6 +88,25 @@ public class ShootScript : MonoBehaviour
 			if (Physics.Raycast (tpsCam.transform.position, tpsCam.transform.forward, out hit, range)) {
 				Debug.Log (hit.transform.name);
 
+=======
+
+					if (target != null) {
+						target.TakeDamage (damage);
+					}
+				
+				} else {
+					GameObject inpact2 = Instantiate (impacteffect, hit.point, Quaternion.LookRotation (hit.normal));
+					Destroy (inpact2, 2f);
+				}
+						
+			}
+		} else if (!fpsCam.enabled) {
+			print ("ELSE");
+			RaycastHit hit;
+			if (Physics.Raycast (tpsCam.transform.position, tpsCam.transform.forward, out hit, range)) {
+				Debug.Log (hit.transform.name);
+
+>>>>>>> 6c6d7518bd5f7e30514ceccd44fb6c851b14816f
 				if (hit.transform.tag == "human") {
 					GameObject inpact1 = Instantiate (Blood, hit.point, Quaternion.LookRotation (hit.normal));
 					Destroy (inpact1, 2f);
@@ -97,8 +121,12 @@ public class ShootScript : MonoBehaviour
 					Destroy (inpact2, 2f);
 				}
 
+<<<<<<< HEAD
 			}
 		}
+=======
+			}}
+>>>>>>> 6c6d7518bd5f7e30514ceccd44fb6c851b14816f
 	}
 
 
